@@ -11,9 +11,9 @@ export class PersonaRepository {
         return this.personas;
     }
 
-    buscarUno(nombre:string): Persona[] {
+    buscarUno(nombre:string): Persona {
       
-        return this.personas.filter(p => p.nombre == nombre);
+        return this.personas.filter(p => p.nombre == nombre)[0];
 
     }
 
