@@ -6,6 +6,7 @@ import { PersonaController } from "./controllers/PersonaController";
 import dotenv from "dotenv";
 import { LibroController } from "./controllers/LibroController";
 import { LibroRepository } from "./repositories/LibroRepository";
+import { PersonaLibrosService } from "./services/PersonaLibrosService";
 
 
 // configures dotenv to work in your application
@@ -18,8 +19,9 @@ const PORT = 3000;
 // no lo tenemos no pasa nada iniciamos el repositorio
 let personaRepository: PersonaRepository = new PersonaRepository();
 let libroRepository: LibroRepository = new LibroRepository();
-let controlador:PersonaController = new PersonaController(personaRepository);
-let controladorLibros:LibroController = new LibroController(libroRepository);
+let personaLibroService: PersonaLibrosService = new PersonaLibrosService(personaRepository, libroRepository);	
+let controlador:PersonaController = new PersonaController(personaLibroService);
+let controladorLibros:LibroController = new LibroController(personaLibroService);
 
 
 
