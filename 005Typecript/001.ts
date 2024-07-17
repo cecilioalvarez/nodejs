@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { Persona } from "./models/Persona";
+import { PersonaRepository } from "./repositories/PersonaRepository";
 import { BodyParser } from "body-parser";
 
 
@@ -13,8 +14,7 @@ app.use(express.json());
 
 const PORT = 3000;
 
-const personas = [new Persona("Juan", 30), new Persona("Maria", 25), new Persona("Carlos", 40)];
-
+let personaRepository:PersonaRepository= new PersonaRepository();
 
 app.get("/", (request: Request, response: Response) => {
   response.status(200).send("Hello World");
@@ -22,10 +22,10 @@ app.get("/", (request: Request, response: Response) => {
 
 app.get("/personas", (request: Request, response: Response) => {
 
-  response.status(200).json(personas);
+  response.status(200).json(personaRepository.buscarTodos());
 
 })
-
+/*
 app.post("/personas", (request: Request, response: Response) => {
 
 
@@ -57,6 +57,7 @@ app.delete("/personas/:nombre", (request: Request, response: Response) => {
   }
 })
 
+*/
 app.listen(PORT, () => {
   console.log("Server running at PORT: ", PORT);
 }).on("error", (error) => {
