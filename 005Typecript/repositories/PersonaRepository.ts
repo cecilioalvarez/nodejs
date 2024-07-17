@@ -11,16 +11,24 @@ export class PersonaRepository {
         return this.personas;
     }
 
+    buscarUno(nombre:string): Persona[] {
+      
+        return this.personas.filter(p => p.nombre == nombre);
+
+    }
+
     insertar(persona: Persona): void {
         this.personas.push(persona);
     }
-    public borrar(nombre: string): void {
-        console.log(` el nombre en el repo es ${nombre}`)
-        let index = this.personas.findIndex(p => p.nombre == nombre);
+    public borrar(persona:Persona): void {
+      
+        let index = this.personas.findIndex(p => p.nombre == persona.nombre);
         if(index == -1){
             throw new Error("Persona no encontrada");
         }else{
+           
             this.personas.splice(index,1);
+            
         }
     }
 

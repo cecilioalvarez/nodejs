@@ -37,6 +37,19 @@ app.post("/personas", (request: Request, response: Response) => {
 
 })
 
+app.get("/personas/:nombre", (request: Request, response: Response) => {
+
+  let nombre: string = request.params.nombre;
+
+  let persona = personaRepository.buscarUno(nombre);
+
+  if (persona) {
+    response.status(200).json(persona);
+  } else {
+    response.status(404).send("Persona no encontrada");
+  }
+
+})
 
 app.delete("/personas/:nombre", (request: Request, response: Response) => { 
 
@@ -45,7 +58,8 @@ app.delete("/personas/:nombre", (request: Request, response: Response) => {
 
   console.log(nombre);
   try {
-    personaRepository.borrar(nombre);
+    let persona= new Persona(nombre);
+    personaRepository.borrar(persona);
     response.status(204).send();
   } catch (error : any) {
     response.status(404).send(error.message);
