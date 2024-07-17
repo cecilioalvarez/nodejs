@@ -22,8 +22,6 @@ app.get("/", (request: Request, response: Response) => {
 
 app.get("/personas", (request: Request, response: Response) => {
 
-
-  
   response.status(200).json(personas);
 
 })
@@ -37,6 +35,26 @@ personas.push(persona);
 response.status(201).json(persona);
 
 
+})
+
+
+app.delete("/personas/:nombre", (request: Request, response: Response) => { 
+
+  // leo el parametro de la peticion con el nombre
+  let nombre = request.params.nombre;
+
+  //uso programacion funcional y un hof para quedarme con la posicion 
+  // de la persona
+  let index = personas.findIndex(p => p.nombre == nombre);
+
+  //sino exise pues devuelvo un 404
+  if(index == -1){
+    response.status(404).send("Persona no encontrada");
+  }else{
+    // si existe la elimino
+    personas.splice(index,1);
+    response.status(200).send("Persona eliminada");
+  }
 })
 
 app.listen(PORT, () => {
