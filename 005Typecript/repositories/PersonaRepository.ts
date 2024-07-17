@@ -11,5 +11,17 @@ export class PersonaRepository {
         return this.personas;
     }
 
+    insertar(persona: Persona): void {
+        this.personas.push(persona);
+    }
+    public borrar(nombre: string): void {
+        console.log(` el nombre en el repo es ${nombre}`)
+        let index = this.personas.findIndex(p => p.nombre == nombre);
+        if(index == -1){
+            throw new Error("Persona no encontrada");
+        }else{
+            this.personas.splice(index,1);
+        }
+    }
 
 }

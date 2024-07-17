@@ -14,7 +14,7 @@ app.use(express.json());
 
 const PORT = 3000;
 
-let personaRepository:PersonaRepository= new PersonaRepository();
+let personaRepository: PersonaRepository = new PersonaRepository();
 
 app.get("/", (request: Request, response: Response) => {
   response.status(200).send("Hello World");
@@ -25,14 +25,14 @@ app.get("/personas", (request: Request, response: Response) => {
   response.status(200).json(personaRepository.buscarTodos());
 
 })
-/*
+// envias los datos en el body de la peticion y los gestionas
 app.post("/personas", (request: Request, response: Response) => {
 
 
-let persona:Persona= request.body;
+  let persona: Persona = request.body;
 
-personas.push(persona);
-response.status(201).json(persona);
+  personaRepository.insertar(persona);
+  response.status(201).json(persona);
 
 
 })
@@ -40,24 +40,20 @@ response.status(201).json(persona);
 
 app.delete("/personas/:nombre", (request: Request, response: Response) => { 
 
-  // leo el parametro de la peticion con el nombre
-  let nombre = request.params.nombre;
 
-  //uso programacion funcional y un hof para quedarme con la posicion 
-  // de la persona
-  let index = personas.findIndex(p => p.nombre == nombre);
+  let nombre: string = request.params.nombre;
 
-  //sino exise pues devuelvo un 404
-  if(index == -1){
-    response.status(404).send("Persona no encontrada");
-  }else{
-    // si existe la elimino
-    personas.splice(index,1);
-    response.status(200).send("Persona eliminada");
+  console.log(nombre);
+  try {
+    personaRepository.borrar(nombre);
+    response.status(204).send();
+  } catch (error : any) {
+    response.status(404).send(error.message);
   }
+  
 })
 
-*/
+
 app.listen(PORT, () => {
   console.log("Server running at PORT: ", PORT);
 }).on("error", (error) => {
