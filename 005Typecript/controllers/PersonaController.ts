@@ -11,10 +11,13 @@ export class PersonaController {
 
     public buscarTodos(request: Request, response: Response): void {
 
-        let personas:Persona[]=  this.personaService.buscarTodosPersonas();
-        let personasDto= personas.map(persona=>PersonaMapper.toDto(persona));
-           
+        let personas:Promise<Persona[]>=  this.personaService.buscarTodosPersonas();
+       
+        personas.then((personas)=>{
+            // ya no son promesas es sincrono
+        let personasDto= personas.map(persona=>PersonaMapper.toDto(persona));   
         response.status(200).json(personasDto);
+        });
     }
 
     public insertar(request: Request, response: Response): void {

@@ -10,5 +10,8 @@ export class Persona {
     addLibro(libro: Libro): void {
         this.libros.push(libro);
     }
+    toString(): string {
+        return `Nombre: ${this.nombre}, Edad: ${this.edad}`;
+    }
 
 }

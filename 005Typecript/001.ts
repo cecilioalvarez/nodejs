@@ -9,6 +9,7 @@ import { LibroRepository } from "./repositories/memory/LibroRepository";
 import { PersonaLibrosService } from "./services/PersonaLibrosService";
 import { IPersonaRepository } from "./repositories/IPersonaRepository";
 import { sqlite3 } from "sqlite3";
+import { PersonaRepositorySQLite } from "./repositories/sql/PersonaRepositorySQLite";
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./sql/misql.db' , (err:any) => {
   
@@ -28,7 +29,7 @@ app.use(express.json());
 
 const PORT = 3000;
 // no lo tenemos no pasa nada iniciamos el repositorio
-let personaRepository: IPersonaRepository = new PersonaRepository();
+let personaRepository: IPersonaRepository = new PersonaRepositorySQLite(db);
 let libroRepository: LibroRepository = new LibroRepository();
 let personaLibroService: PersonaLibrosService = new PersonaLibrosService(personaRepository, libroRepository);	
 let controlador:PersonaController = new PersonaController(personaLibroService);

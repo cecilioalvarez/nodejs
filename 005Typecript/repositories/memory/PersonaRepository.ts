@@ -1,7 +1,7 @@
 import { Persona } from "../../models/Persona";
 import { IPersonaRepository } from "../IPersonaRepository";
 
-export class PersonaRepository  implements IPersonaRepository{
+export class PersonaRepository  {
 
     personas: Persona[] = [new Persona("Juan1", 30), new Persona("Maria1", 25), new Persona("Carlos1", 40)];	
 

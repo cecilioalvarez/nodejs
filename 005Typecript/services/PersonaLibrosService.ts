@@ -8,7 +8,7 @@ export class PersonaLibrosService {
 
     constructor(public personaRepository: IPersonaRepository, public libroRepository: LibroRepository) {
     }
-    public  buscarTodosPersonas():Persona[] {
+    public  buscarTodosPersonas():Promise<Persona[]> {
         return  this.personaRepository.buscarTodos();
     }
     public buscarTodosLibros() {
