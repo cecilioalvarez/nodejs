@@ -1,12 +1,14 @@
-import {PersonaRepository} from '../repositories/PersonaRepository';
-import {LibroRepository} from '../repositories/LibroRepository';	
+import {PersonaRepository} from '../repositories/memory/PersonaRepository';
+
+import {LibroRepository} from '../repositories/memory/LibroRepository';	
 import { Persona } from '../models/Persona';
+import { IPersonaRepository } from '../repositories/IPersonaRepository';
 
 export class PersonaLibrosService {
 
-    constructor(public personaRepository: PersonaRepository, public libroRepository: LibroRepository) {
+    constructor(public personaRepository: IPersonaRepository, public libroRepository: LibroRepository) {
     }
-    public  buscarTodosPersonas() {
+    public  buscarTodosPersonas():Persona[] {
         return  this.personaRepository.buscarTodos();
     }
     public buscarTodosLibros() {

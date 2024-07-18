@@ -1,15 +1,20 @@
 
 import express, { Request, Response } from "express";
-import { PersonaRepository } from "../repositories/PersonaRepository";
+import { PersonaRepository } from "../repositories/memory/PersonaRepository";
 import { Persona } from "../models/Persona";
 import { PersonaLibrosService } from "../services/PersonaLibrosService";
+import { PersonaMapper } from "../mappers/PersonaMapper";
 
 export class PersonaController {
     constructor(public personaService: PersonaLibrosService) {
     }
 
     public buscarTodos(request: Request, response: Response): void {
-        response.status(200).json(this.personaService.buscarTodosPersonas());
+
+        let personas:Persona[]=  this.personaService.buscarTodosPersonas();
+        let personasDto= personas.map(persona=>PersonaMapper.toDto(persona));
+           
+        response.status(200).json(personasDto);
     }
 
     public insertar(request: Request, response: Response): void {

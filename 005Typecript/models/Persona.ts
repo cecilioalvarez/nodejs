@@ -4,7 +4,7 @@ export class Persona {
 
     libros: Array<Libro> = [];
 
-    constructor (public nombre: string, public edad?: number) {
+    constructor (public nombre: string, public edad?: number|undefined) {
     }
 
     addLibro(libro: Libro): void {
